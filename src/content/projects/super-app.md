@@ -6,5 +6,5 @@ stack:
   - TailwindCSS
   - TypeScript
 link: "https://github.com/magikdidi24/test_bot_github"
-#cover: "/img/super-app.png"
+cover: "/img/super-app.png"
 ---

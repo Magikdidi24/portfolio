@@ -5,7 +5,7 @@ const projectSchema = z.object({
   description: z.string(),
   stack: z.array(z.string()),
   link: z.string().url(),
-  cover: z.string(),
+  cover: z.string().optional(),
 });
 
 export const collections = {

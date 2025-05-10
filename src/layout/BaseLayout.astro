@@ -1,0 +1,25 @@
+---
+const { children, title } = Astro.props;
+---
+<html lang="fr" class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{title} – Mon Portfolio</title>
+    <link rel="icon" href="/favicon.ico" />
+  </head>
+  <body class="font-sans antialiased">
+    <header class="max-w-4xl mx-auto p-6 flex justify-between items-center">
+      <h1 class="text-3xl font-bold">Magikdidi24</h1>
+      <button
+        class="p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700"
+        onclick="document.documentElement.classList.toggle('dark')"
+      >
+        🌙
+      </button>
+    </header>
+    <main class="prose prose-lg max-w-4xl mx-auto">{children}</main>
+    <footer class="text-center p-6 text-sm">
+      © {new Date().getFullYear()} Magikdidi24
+    </footer>
+  </body>
+</html>

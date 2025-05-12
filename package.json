@@ -10,10 +10,18 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.7.12"
+    "@astrojs/image": "^0.18.0",
+    "@iconify/json": "^2.2.336",
+    "astro": "^5.7.12",
+    "lucide-react": "^0.509.0"
   },
   "devDependencies": {
     "@astrojs/tailwind": "^6.0.2",
-    "tailwindcss": "^3.3.3"
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/typography": "^0.5.16",
+    "aos": "^2.3.4",
+    "sharp": "^0.34.1",
+    "tailwindcss": "^3.3.3",
+    "tailwindcss-animate": "^1.0.7"
   }
 }

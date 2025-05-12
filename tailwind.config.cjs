@@ -10,7 +10,8 @@ module.exports = {
         accent: colors.amber,
       },
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
+        sans: ['Poppins', 'ui-sans-serif', 'system-ui'],
+        serif: ['Source Serif 4', 'ui-serif', 'Georgia'],
       },
     },
   },

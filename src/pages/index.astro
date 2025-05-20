@@ -2,7 +2,7 @@
 import BaseLayout from '../layout/BaseLayout.astro';
 import 'aos/dist/aos.css';
 import { Image } from 'astro:assets';
-import localBirdImage from '../../public/img/photo_samuel.jpeg';
+import localBirdImage from '../../public/img/photo_samuel.png';
 import lapin_g from '../../public/img/lapin-g.png';
 import lapin_d from '../../public/img/lapin-d.png';
 import { getCollection } from 'astro:content';
@@ -134,7 +134,6 @@ const personal = await getCollection('personalProjects');
       </div>
     </div>
 
-    <!-- Contrôles positionnés en absolute -->
     <div
       class="absolute left-1/2 bottom-4 transform -translate-x-1/2 flex items-center space-x-4 z-10"
     >
@@ -155,9 +154,7 @@ const personal = await getCollection('personalProjects');
     </div>
   </section>
 
-  <!-- Section Projets Personnels -->
   <section id="personal-projects" class="relative mx-4 md:mx-12 rounded-lg bg-black/30 backdrop-blur-sm overflow-hidden pt-12 pb-8 mt-12">
-    <!-- Titre avec ID pour l'effet Matrix -->
     <h2 id="personal-projects-title" class="text-3xl font-mono font-bold text-green-400 mb-6 text-center">
       My own projects
     </h2>
@@ -172,7 +169,6 @@ const personal = await getCollection('personalProjects');
       </div>
     </div>
     
-    <!-- Contrôles positionnés en absolute -->
     <div
       class="absolute left-1/2 bottom-4 transform -translate-x-1/2 flex items-center space-x-4 z-10"
     >
@@ -220,13 +216,10 @@ const personal = await getCollection('personalProjects');
         method="POST"
         class="space-y-6 bg-black/70 backdrop-blur-sm p-8 rounded-lg border border-green-500/50 shadow-lg shadow-green-500/20"
       >
-        <!-- Honeypot anti-spam -->
         <input type="text" name="_gotcha" class="hidden" />
 
-        <!-- Objet de l’email -->
         <input type="hidden" name="_subject" value="Nouveau message via portfolio" />
 
-        <!-- Tes champs existants -->
         <label class="block">
           <span class="text-green-400 font-mono mb-2 block">Your email:</span>
           <input
@@ -275,7 +268,6 @@ const personal = await getCollection('personalProjects');
       });
     </script>
 
-      <!-- Social Links -->
       <div class="mt-12 flex justify-center space-x-6">
         <a 
           href="mailto:samuel.berthelot11@gmail.com" 
@@ -316,7 +308,6 @@ const personal = await getCollection('personalProjects');
   </section>
   <PillModal />
 
-  <!-- Footer -->
   <footer class="bg-black/30 backdrop-blur-sm py-6 text-center">
     <div class="container mx-auto px-4">
       <p class="text-green-400 font-mono">
@@ -325,20 +316,16 @@ const personal = await getCollection('personalProjects');
     </div>
   </footer>
 
-  <!-- Scripts pour l'effet Matrix et les interactions -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Caractères pour l'effet Matrix
       const matrixChars = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズヅブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロゴゾドボポヴン';
       
-      // Fonction pour l'effet Matrix sur les textes
       function matrixEffect(element) {
         if (!element) return;
         
         const originalText = element.textContent;
         let iteration = 0;
         
-        // Remplacer tout le texte par des caractères matrix
         element.textContent = originalText.replace(/./g, () => 
           matrixChars[Math.floor(Math.random() * matrixChars.length)]
         );
@@ -468,7 +455,6 @@ const personal = await getCollection('personalProjects');
         }
       });
       
-      // Maintenir le focus sur le terminal
       window.addEventListener('click', () => {
         if (terminalInput.disabled !== true) {
           terminalInput.focus();

@@ -11,7 +11,7 @@ stack:
   - Swagger
   - Maven
 link: "https://github.com/magikdidi24/JWS"
-cover: "/portfolio/img/JWS.png"
+cover: "/portfolio/img/JWS.webp"
 teamSize: 1
 timeAvailable: "1 week"
 ---

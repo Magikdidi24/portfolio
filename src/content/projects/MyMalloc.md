@@ -6,7 +6,7 @@ stack:
   - Shell
   - CMake
 link: "https://github.com/magikdidi24/MyMalloc"
-cover: "/portfolio/img/MyMalloc.png"
+cover: "/portfolio/img/MyMalloc.webp"
 teamSize: 1
 timeAvailable: "1 week"
 ---

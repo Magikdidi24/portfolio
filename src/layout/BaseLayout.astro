@@ -1,14 +1,20 @@
 --- 
-const { title } = Astro.props; 
-
+const { title, description = "Samuel's portfolio — Computer engineering student at EPITA, passionate about AI, C/C++, Python, and building creative projects." } = Astro.props; 
+const base = import.meta.env.BASE_URL;
 ---
 <!DOCTYPE html>
-<html lang="fr" class="dark:text-green-400 text-green-600">
+<html lang="en" class="dark:text-green-400 text-green-600">
   <head>
     <meta charset="utf-8" />
-    <title>{title} – Mon Portfolio</title>
-    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title} – Samuel's Portfolio</title>
+    <link rel="icon" href={`${base}favicon.svg`} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
     <style>
+      html { scroll-behavior: smooth; }
       #matrix-canvas {
         position: fixed;
         top: 0;
@@ -23,30 +29,82 @@ const { title } = Astro.props;
   <body class="font-sans antialiased">
     <canvas id="matrix-canvas"></canvas>
     
-    <header class="relative max-w-4xl mx-auto p-6 flex justify-between items-center">
-      <h1 id="portfolio-title" class="text-3xl font-bold">Mon Portfolio</h1>
+    <!-- Navigation Bar -->
+    <header class="fixed top-0 left-0 right-0 z-40 bg-black/70 backdrop-blur-md border-b border-green-500/20">
+      <nav class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+        <h1 id="portfolio-title" class="text-xl font-bold font-mono text-green-400">Samuel</h1>
+        <ul class="hidden md:flex items-center space-x-6 text-sm font-mono">
+          <li><a href="#presentation" class="text-green-400/70 hover:text-green-400 transition-colors duration-300">About</a></li>
+          <li><a href="#projects" class="text-green-400/70 hover:text-green-400 transition-colors duration-300">Academic</a></li>
+          <li><a href="#personal-projects" class="text-green-400/70 hover:text-green-400 transition-colors duration-300">Projects</a></li>
+          <li><a href="#contact" class="text-green-400/70 hover:text-green-400 transition-colors duration-300">Contact</a></li>
+        </ul>
+        <!-- Mobile menu button -->
+        <button id="mobile-menu-btn" class="md:hidden text-green-400 p-2" aria-label="Toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </nav>
+      <!-- Mobile menu -->
+      <div id="mobile-menu" class="hidden md:hidden bg-black/90 backdrop-blur-md border-b border-green-500/20 px-4 pb-4">
+        <ul class="flex flex-col space-y-3 text-sm font-mono">
+          <li><a href="#presentation" class="text-green-400/70 hover:text-green-400 transition-colors duration-300 block py-1">About</a></li>
+          <li><a href="#projects" class="text-green-400/70 hover:text-green-400 transition-colors duration-300 block py-1">Academic</a></li>
+          <li><a href="#personal-projects" class="text-green-400/70 hover:text-green-400 transition-colors duration-300 block py-1">Projects</a></li>
+          <li><a href="#contact" class="text-green-400/70 hover:text-green-400 transition-colors duration-300 block py-1">Contact</a></li>
+        </ul>
+      </div>
     </header>
     
-    <main class="relative prose prose-lg max-w-4xl mx-auto">
+    <main class="relative prose prose-lg max-w-6xl mx-auto pt-16">
       <slot/>
     </main>
     
     <script type="module">
+      // Mobile menu toggle
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      menuBtn?.addEventListener('click', () => {
+        mobileMenu?.classList.toggle('hidden');
+      });
+      // Close mobile menu when clicking a link
+      mobileMenu?.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => mobileMenu?.classList.add('hidden'));
+      });
+
+      // Matrix rain canvas - using requestAnimationFrame for performance
       const canvas = document.getElementById('matrix-canvas');
       const ctx = canvas.getContext('2d');
-      canvas.width = innerWidth;
-      canvas.height = innerHeight;
-      window.addEventListener('resize', () => {
+      
+      function resize() {
         canvas.width = innerWidth;
         canvas.height = innerHeight;
-      });
+      }
+      resize();
+      window.addEventListener('resize', resize);
       
       const letters = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズヅブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロゴゾドボポヴン';
       const fontSize = 16;
-      const columns = Math.floor(canvas.width / fontSize);
-      const drops = Array(columns).fill(0);
+      let columns = Math.floor(canvas.width / fontSize);
+      let drops = Array(columns).fill(0);
       
-      function draw() {
+      // Recalculate on resize
+      window.addEventListener('resize', () => {
+        columns = Math.floor(canvas.width / fontSize);
+        drops = Array(columns).fill(0);
+      });
+      
+      let lastTime = 0;
+      const interval = 50; // ~20fps for matrix rain (more efficient)
+      
+      function draw(timestamp) {
+        if (timestamp - lastTime < interval) {
+          requestAnimationFrame(draw);
+          return;
+        }
+        lastTime = timestamp;
+        
         ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
@@ -64,20 +122,21 @@ const { title } = Astro.props;
           }
           drops[i]++;
         }
-        setTimeout(draw, 60);
+        requestAnimationFrame(draw);
       }
-      draw();
+      requestAnimationFrame(draw);
 
+      // Matrix text effect for the title
       const portfolioTitle = document.getElementById('portfolio-title');
       const originalText = portfolioTitle.textContent;
-      let interval;
+      let matrixInterval;
 
       function matrixEffect() {
         let iteration = 0;
         let currentText = originalText;
-        clearInterval(interval);
+        clearInterval(matrixInterval);
         
-        interval = setInterval(() => {
+        matrixInterval = setInterval(() => {
           portfolioTitle.textContent = currentText
             .split('')
             .map((letter, index) => {
@@ -89,7 +148,7 @@ const { title } = Astro.props;
             .join('');
           
           if (iteration >= originalText.length) {
-            clearInterval(interval);
+            clearInterval(matrixInterval);
             setTimeout(matrixEffect, 5000);
           }
           

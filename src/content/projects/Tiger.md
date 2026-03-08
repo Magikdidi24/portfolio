@@ -6,7 +6,7 @@ stack:
   - Docker
   - CMake
 link: "https://github.com/magikdidi24/Tiger"
-cover: "/portfolio/img/Tiger.png"
+cover: "/portfolio/img/Tiger.webp"
 teamSize: 4
 timeAvailable: "1 month et 2 weeks"
 ---

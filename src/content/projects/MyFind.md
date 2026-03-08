@@ -6,7 +6,7 @@ stack:
   - Shell
   - CMake
 link: "https://github.com/magikdidi24/MyFind"
-cover: "/portfolio/img/MyFind.png"
+cover: "/portfolio/img/MyFind.webp"
 teamSize: 1
 timeAvailable: "1 week"
 ---

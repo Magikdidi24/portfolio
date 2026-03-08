@@ -6,7 +6,7 @@ stack:
   - YAML
   - DevOps
 link: "https://github.com/magikdidi24/IDVOC"
-cover: "/portfolio/img/IDVOC.png"
+cover: "/portfolio/img/IDVOC.webp"
 teamSize: 1
 timeAvailable: "2 months"
 ---
